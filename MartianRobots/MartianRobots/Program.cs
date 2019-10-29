@@ -23,6 +23,9 @@ namespace MartianRobots
 
         public static Tuple<Surface, List<RobotRunBook>> ParseInstructionsFile(string filePath)
         {
+            int maxCoordinate = 50;
+            int maxCharactersLength = 100;
+
             if (!File.Exists(filePath))
                 throw new FileNotFoundException(filePath);
             var file = new StreamReader(filePath);
@@ -37,6 +40,10 @@ namespace MartianRobots
             while ((line = file.ReadLine()) != null)
             {
                 var firstLine = line;
+                if (Convert.ToInt32(firstLine[0]) > maxCoordinate 
+                    || Convert.ToInt32(firstLine[1]) > maxCoordinate)
+                    throw new ArgumentException();
+
                 var secondLine = file.ReadLine();
                 if (string.IsNullOrWhiteSpace(firstLine)
                     || firstLine.Length > 5
@@ -44,7 +51,7 @@ namespace MartianRobots
                     throw new ArgumentException(nameof(filePath));
 
                 if (string.IsNullOrWhiteSpace(secondLine)
-                    || secondLine.Length >= 100
+                    || secondLine.Length >= maxCharactersLength
                     || secondLine.Length < 1)
                     throw new ArgumentException(nameof(filePath));
 
