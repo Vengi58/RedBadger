@@ -40,8 +40,8 @@ namespace MartianRobots
             while ((line = file.ReadLine()) != null)
             {
                 var firstLine = line;
-                if (Convert.ToInt32(firstLine[0]) > maxCoordinate 
-                    || Convert.ToInt32(firstLine[1]) > maxCoordinate)
+                if (Convert.ToInt32(firstLine[0].ToString()) > maxCoordinate 
+                    || Convert.ToInt32(firstLine[1].ToString()) > maxCoordinate)
                     throw new ArgumentException();
 
                 var secondLine = file.ReadLine();
